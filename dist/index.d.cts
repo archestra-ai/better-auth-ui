@@ -7,7 +7,7 @@ import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { P as PasswordValidation, F as FieldType } from './auth-ui-provider-Bv9COOsW.cjs';
 export { A as AppleIcon, n as AuthUIContext, l as AuthUIContextType, o as AuthUIProvider, m as AuthUIProviderProps, D as DiscordIcon, c as DropboxIcon, d as FacebookIcon, G as GitHubIcon, e as GitLabIcon, f as GoogleIcon, H as HuggingFaceIcon, K as KickIcon, L as LinearIcon, g as LinkedInIcon, M as MicrosoftIcon, N as NotionIcon, p as Provider, b as ProviderIcon, a as ProviderIconProps, R as RedditIcon, h as RobloxIcon, S as SlackIcon, i as SpotifyIcon, q as TeamOptions, r as TeamOptionsContext, T as TikTokIcon, j as TwitchIcon, k as VKIcon, V as VercelIcon, X as XIcon, Z as ZoomIcon, s as socialProviders } from './auth-ui-provider-Bv9COOsW.cjs';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { Organization } from 'better-auth/plugins/organization';
+import { Organization, Member } from 'better-auth/plugins/organization';
 import * as class_variance_authority_types from 'class-variance-authority/types';
 import { VariantProps } from 'class-variance-authority';
 import * as better_auth from 'better-auth';
@@ -404,8 +404,9 @@ interface OrganizationLogoCardProps extends ComponentProps<typeof Card> {
 }
 declare function OrganizationLogoCard({ className, classNames, localization: localizationProp, slug, ...props }: OrganizationLogoCardProps): react_jsx_runtime.JSX.Element;
 
-declare function OrganizationMembersCard({ className, classNames, localization: localizationProp, slug: slugProp, ...props }: SettingsCardProps & {
+declare function OrganizationMembersCard({ className, classNames, localization: localizationProp, slug: slugProp, filterFn, ...props }: SettingsCardProps & {
     slug?: string;
+    filterFn?: (member: Member) => boolean;
 }): react_jsx_runtime.JSX.Element;
 
 interface OrganizationNameCardProps extends SettingsCardProps {

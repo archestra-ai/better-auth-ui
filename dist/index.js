@@ -11433,6 +11433,7 @@ function OrganizationMembersCard({
   classNames,
   localization: localizationProp,
   slug: slugProp,
+  filterFn = () => true,
   ...props
 }) {
   const {
@@ -11467,6 +11468,7 @@ function OrganizationMembersCard({
       classNames,
       localization,
       organization,
+      filterFn,
       ...props
     }
   );
@@ -11476,6 +11478,7 @@ function OrganizationMembersContent({
   classNames,
   localization: localizationProp,
   organization,
+  filterFn = () => true,
   ...props
 }) {
   const {
@@ -11525,7 +11528,7 @@ function OrganizationMembersContent({
           CardContent,
           {
             className: cn("grid gap-4", classNames == null ? void 0 : classNames.content),
-            children: members.sort(
+            children: members.filter(filterFn).sort(
               (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
             ).map((member) => /* @__PURE__ */ jsx92(
               MemberCell,

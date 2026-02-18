@@ -1,6 +1,6 @@
 "use client"
 
-import type { Organization } from "better-auth/plugins/organization"
+import type { Member, Organization } from "better-auth/plugins/organization"
 import { useContext, useMemo, useState } from "react"
 
 import { useCurrentOrganization } from "../../hooks/use-current-organization"
@@ -17,8 +17,9 @@ export function OrganizationMembersCard({
     classNames,
     localization: localizationProp,
     slug: slugProp,
+    filterFn = () => true,
     ...props
-}: SettingsCardProps & { slug?: string }) {
+}: SettingsCardProps & { slug?: string, filterFn?: (member: Member) => boolean }) {
     const {
         localization: contextLocalization,
         organization: organizationOptions
@@ -54,6 +55,7 @@ export function OrganizationMembersCard({
             classNames={classNames}
             localization={localization}
             organization={organization}
+            filterFn={filterFn}
             {...props}
         />
     )
@@ -64,8 +66,9 @@ function OrganizationMembersContent({
     classNames,
     localization: localizationProp,
     organization,
+    filterFn = () => true,
     ...props
-}: SettingsCardProps & { organization: Organization }) {
+}: SettingsCardProps & { organization: Organization, filterFn?: (member: Member) => boolean }) {
     const {
         hooks: { useHasPermission, useListMembers },
         localization: contextLocalization
@@ -123,6 +126,7 @@ function OrganizationMembersContent({
                         className={cn("grid gap-4", classNames?.content)}
                     >
                         {members
+                            .filter(filterFn)
                             .sort(
                                 (a, b) =>
                                     new Date(a.createdAt).getTime() -
